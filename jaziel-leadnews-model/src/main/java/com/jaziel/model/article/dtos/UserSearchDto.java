@@ -1,7 +1,7 @@
 package com.jaziel.model.article.dtos;
 
 
-import com.heima.model.user.pojos.ApUserSearch;
+import com.jaziel.model.user.pojos.ApUserSearch;
 import com.jaziel.model.annotation.IdEncrypt;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.heima.model.user.pojos;
+package com.jaziel.model.user.pojos;
 
 import lombok.Data;
 import lombok.Setter;

@@ -1,8 +1,8 @@
-package com.heima.model.article.pojos;
+package com.jaziel.model.article.pojos;
 
 
-import com.heima.model.annotation.DateConvert;
-import com.heima.model.annotation.IdEncrypt;
+import com.jaziel.model.annotation.DateConvert;
+import com.jaziel.model.annotation.IdEncrypt;
 import lombok.Data;
 
 import java.util.Date;

@@ -1,7 +1,7 @@
 package com.jaziel.common.common.init;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.heima.common.jackson.ConfusionModule;
+import com.jaziel.common.jackson.ConfusionModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

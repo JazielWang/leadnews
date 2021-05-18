@@ -1,7 +1,7 @@
 package com.jaziel.utils.threadlocal;
 
 
-import com.heima.model.media.pojos.WmUser;
+import com.jaziel.model.media.pojos.WmUser;
 
 public class WmThreadLocalUtils {
 

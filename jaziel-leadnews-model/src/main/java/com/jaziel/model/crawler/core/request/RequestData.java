@@ -1,6 +1,6 @@
 package com.jaziel.model.crawler.core.request;
 
-import com.heima.model.crawler.enums.CrawlerEnum;
+import com.jaziel.model.crawler.enums.CrawlerEnum;
 
 import java.io.Serializable;
 import java.util.List;

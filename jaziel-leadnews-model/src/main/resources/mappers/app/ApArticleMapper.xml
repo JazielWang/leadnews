@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.heima.model.mappers.app.ApArticleMapper">
+<mapper namespace="com.jaziel.model.mappers.app.ApArticleMapper">
     <resultMap id="resultMap" type="com.jaziel.model.article.pojos.ApArticle">
         <id column="id" property="id"/>
         <result column="title" property="title"/>
@@ -23,7 +23,7 @@
         <result column="publish_time" property="publishTime"/>
         <result column="sync_status" property="syncStatus"/>
     </resultMap>
-    <resultMap id="resultStatisticMap" type="com.heima.model.article.pojos.ApArticleSDto">
+    <resultMap id="resultStatisticMap" type="com.jaziel.model.article.pojos.ApArticleSDto">
         <result column="author_id" property="authorId"/>
         <result column="count" property="count"/>
     </resultMap>
@@ -141,7 +141,7 @@
         where author_id = #{apAuthorId}
     </select>
 
-    <insert id="insert" parameterType="com.heima.model.article.pojos.ApArticle">
+    <insert id="insert" parameterType="com.jaziel.model.article.pojos.ApArticle">
         <selectKey resultType="java.lang.Integer" order="AFTER" keyColumn="id" keyProperty="id">
             select last_insert_id()
         </selectKey>

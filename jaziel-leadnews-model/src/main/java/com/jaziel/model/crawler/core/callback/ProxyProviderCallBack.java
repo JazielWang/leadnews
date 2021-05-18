@@ -1,6 +1,6 @@
 package com.jaziel.model.crawler.core.callback;
 
-import com.heima.model.crawler.core.proxy.CrawlerProxy;
+import com.jaziel.model.crawler.core.proxy.CrawlerProxy;
 import com.jaziel.model.crawler.core.proxy.CrawlerProxy;
 
 import java.util.List;

@@ -1,7 +1,8 @@
 package com.jaziel.utils.threadlocal;
 
 
-import com.heima.model.user.pojos.ApUser;
+import com.jaziel.model.user.pojos.ApUser;
+import com.jaziel.model.user.pojos.ApUser;
 
 public class AppThreadLocalUtils {
 

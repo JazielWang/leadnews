@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.BeanDescription;
 import com.fasterxml.jackson.databind.SerializationConfig;
 import com.fasterxml.jackson.databind.ser.BeanPropertyWriter;
 import com.fasterxml.jackson.databind.ser.BeanSerializerModifier;
-import com.heima.model.annotation.IdEncrypt;
+import com.jaziel.model.annotation.IdEncrypt;
 
 import java.util.ArrayList;
 import java.util.List;

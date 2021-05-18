@@ -2,9 +2,9 @@ package com.jaziel.model.mappers.app;
 
 
 import com.jaziel.model.article.dtos.ArticleHomeDto;
-import com.heima.model.article.pojos.ApArticle;
-import com.heima.model.article.pojos.ApArticleSDto;
-import com.heima.model.user.pojos.ApUserArticleList;
+import com.jaziel.model.article.pojos.ApArticle;
+import com.jaziel.model.article.pojos.ApArticleSDto;
+import com.jaziel.model.user.pojos.ApUserArticleList;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

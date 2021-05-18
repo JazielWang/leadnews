@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.heima.utils.common.IdsUtils;
+import com.jaziel.utils.common.IdsUtils;
 
 import java.io.IOException;
 

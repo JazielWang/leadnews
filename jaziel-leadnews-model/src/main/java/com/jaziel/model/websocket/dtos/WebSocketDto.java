@@ -1,6 +1,6 @@
 package com.jaziel.model.websocket.dtos;
 
-import com.heima.model.annotation.IdEncrypt;
+import com.jaziel.model.annotation.IdEncrypt;
 import lombok.Data;
 
 @Data

@@ -1,6 +1,6 @@
 package com.jaziel.model.admin.dtos;
 
-import com.heima.model.admin.enums.CommonTableEnum;
+import com.jaziel.model.admin.enums.CommonTableEnum;
 import lombok.Data;
 
 import java.util.List;

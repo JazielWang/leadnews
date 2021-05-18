@@ -1,6 +1,6 @@
 package com.jaziel.common.common.init;
 
-import com.heima.common.common.contants.Contants;
+import com.jaziel.common.common.contants.Contants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;

@@ -1,7 +1,7 @@
 package com.jaziel.utils.threadlocal;
 
 
-import com.heima.model.admin.pojos.AdUser;
+import com.jaziel.model.admin.pojos.AdUser;
 
 public class AdminThreadLocalUtils {
 

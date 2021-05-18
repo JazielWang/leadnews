@@ -1,7 +1,7 @@
 package com.jaziel.model.crawler.core.callback;
 
 
-import com.heima.model.crawler.core.cookie.CrawlerCookie;
+import com.jaziel.model.crawler.core.cookie.CrawlerCookie;
 
 public interface CookieCallBack {
     /**

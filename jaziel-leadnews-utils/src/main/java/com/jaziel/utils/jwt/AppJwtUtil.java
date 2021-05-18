@@ -1,8 +1,8 @@
 package com.jaziel.utils.jwt;
 
-import com.heima.model.admin.pojos.AdUser;
-import com.heima.model.media.pojos.WmUser;
-import com.heima.model.user.pojos.ApUser;
+import com.jaziel.model.admin.pojos.AdUser;
+import com.jaziel.model.media.pojos.WmUser;
+import com.jaziel.model.user.pojos.ApUser;
 import io.jsonwebtoken.*;
 
 import javax.crypto.SecretKey;

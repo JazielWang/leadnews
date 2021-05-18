@@ -1,10 +1,9 @@
 package com.jaziel.common.web.app.security;
 
 import com.alibaba.fastjson.JSON;
-import com.jaziel.common.common.contants.Contants;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.common.enums.AppHttpCodeEnum;
-import com.heima.model.user.pojos.ApUser;
+import com.jaziel.model.user.pojos.ApUser;
 import com.jaziel.utils.jwt.AppJwtUtil;
 import com.jaziel.utils.threadlocal.AppThreadLocalUtils;
 import io.jsonwebtoken.Claims;
@@ -28,10 +27,10 @@ public class AppTokenFilter extends GenericFilterBean {
         HttpServletRequest request = (HttpServletRequest)req;
         ResponseResult<?> result = checkToken(request);
         // 测试和开发环境不过滤
-        if(true||result==null||!Contants.isProd()){
+        if(true||result==null||!com.jaziel.common.contants.Contants.isProd()){
             chain.doFilter(req,res);
         }else{
-            res.setCharacterEncoding(Contants.CHARTER_NAME);
+            res.setCharacterEncoding(com.jaziel.common.contants.Contants.CHARTER_NAME);
             res.setContentType("application/json");
             res.getOutputStream().write(JSON.toJSONString(result).getBytes());
         }

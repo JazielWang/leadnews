@@ -1,6 +1,6 @@
 package com.jaziel.model.behavior.dtos;
 
-import com.heima.model.article.pojos.ApArticle;
+import com.jaziel.model.article.pojos.ApArticle;
 import com.jaziel.model.annotation.IdEncrypt;
 import lombok.Data;
 

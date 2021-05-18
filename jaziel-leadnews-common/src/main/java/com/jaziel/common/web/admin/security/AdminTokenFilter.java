@@ -1,7 +1,6 @@
 package com.jaziel.common.web.admin.security;
 
 import com.alibaba.fastjson.JSON;
-import com.jaziel.common.common.contants.Contants;
 import com.jaziel.model.admin.pojos.AdUser;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.common.enums.AppHttpCodeEnum;
@@ -39,7 +38,7 @@ public class AdminTokenFilter extends GenericFilterBean {
         if(result==null||uri.startsWith("/login")){
             chain.doFilter(req,res);
         }else{
-            res.setCharacterEncoding(Contants.CHARTER_NAME);
+            res.setCharacterEncoding(com.jaziel.common.contants.Contants.CHARTER_NAME);
             res.setContentType("application/json");
             res.getOutputStream().write(JSON.toJSONString(result).getBytes());
         }

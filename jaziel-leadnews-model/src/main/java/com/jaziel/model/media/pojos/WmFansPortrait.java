@@ -1,7 +1,7 @@
-package com.heima.model.media.pojos;
+package com.jaziel.model.media.pojos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.heima.model.annotation.IdEncrypt;
+import com.jaziel.model.annotation.IdEncrypt;
 import lombok.Data;
 
 import java.util.Date;

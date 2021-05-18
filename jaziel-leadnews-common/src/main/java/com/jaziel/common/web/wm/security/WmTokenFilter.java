@@ -1,10 +1,9 @@
 package com.jaziel.common.web.wm.security;
 
 import com.alibaba.fastjson.JSON;
-import com.jaziel.common.common.contants.Contants;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.common.enums.AppHttpCodeEnum;
-import com.heima.model.media.pojos.WmUser;
+import com.jaziel.model.media.pojos.WmUser;
 import com.jaziel.utils.jwt.AppJwtUtil;
 import com.jaziel.utils.threadlocal.WmThreadLocalUtils;
 import io.jsonwebtoken.Claims;
@@ -29,6 +28,7 @@ public class WmTokenFilter extends GenericFilterBean {
 
     Logger logger = LoggerFactory.getLogger(WmTokenFilter.class);
 
+    @Override
     public  void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException{
         HttpServletRequest request = (HttpServletRequest)req;
         HttpServletResponse response = (HttpServletResponse)res;
@@ -38,7 +38,7 @@ public class WmTokenFilter extends GenericFilterBean {
         if(result==null||uri.startsWith("/login")){
             chain.doFilter(req,res);
         }else{
-            res.setCharacterEncoding(Contants.CHARTER_NAME);
+            res.setCharacterEncoding(com.jaziel.common.contants.Contants.CHARTER_NAME);
             res.setContentType("application/json");
             res.getOutputStream().write(JSON.toJSONString(result).getBytes());
         }
