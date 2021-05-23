@@ -40,10 +40,23 @@ public class AppArticleServiceImpl implements AppArticleService {
     */
     @Override
     public ResponseResult load(Short type, ArticleHomeDto dto) {
+        //参数校验
+        if(dto ==null ){
+            dto = new ArticleHomeDto();
+        }
+        //时间校验
+        if(dto.getMaxBehotTime()==null){
+            dto.setMaxBehotTime(new Date());
+        }
+
+        if(dto.getMinBehotTime()==null){
+            dto.setMinBehotTime(new Date());
+        }
+        // 分页参数校验
         ApUser user = AppThreadLocalUtils.getUser();
         Integer size = dto.getSize();
         String tag = dto.getTag();
-        // 分页参数校验
+
         if (size == null || size <= 0) {
             size = 20;
         }

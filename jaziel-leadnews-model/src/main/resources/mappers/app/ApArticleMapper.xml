@@ -87,7 +87,7 @@
 
     <!-- 依据地理位置获取 -->
     <select id="loadArticleListByLocation" resultMap="resultMap">
-        select * from ap_article a
+        select <include refid="Base_Column_List"/> from ap_article a
         <where>
             <if test="dto.provinceId!=null">
                 and a.province_id=#{dto.provinceId}
