@@ -35,21 +35,21 @@ public class AppArticleServiceImpl implements AppArticleService {
 
 
     /**
-    * @param type 1 加载更多 2 加载更新
-    * @return 数据列表
-    */
+     * @param type 1 加载更多 2 加载更新
+     * @return 数据列表
+     */
     @Override
     public ResponseResult load(Short type, ArticleHomeDto dto) {
         //参数校验
-        if(dto ==null ){
+        if (dto == null) {
             dto = new ArticleHomeDto();
         }
         //时间校验
-        if(dto.getMaxBehotTime()==null){
+        if (dto.getMaxBehotTime() == null) {
             dto.setMaxBehotTime(new Date());
         }
 
-        if(dto.getMinBehotTime()==null){
+        if (dto.getMinBehotTime() == null) {
             dto.setMinBehotTime(new Date());
         }
         // 分页参数校验
@@ -70,10 +70,6 @@ public class AppArticleServiceImpl implements AppArticleService {
         if (StringUtils.isEmpty(tag)) {
             dto.setTag(ArticleConstans.DEFAULT_TAG);
         }
-        // 最小时间处理
-        if (dto.getMinBehotTime() == null) {
-            dto.setMinBehotTime(new Date());
-        }
         // 数据加载
         if (user == null) {
             return ResponseResult.okResult(getUserArticle(type, dto));
@@ -86,7 +82,7 @@ public class AppArticleServiceImpl implements AppArticleService {
         List<ApUserArticleList> list = apUserArticleListMapper.loadArticleIdListByUser(user, type, dto);
         if (list.isEmpty()) {
             return getUserArticle(type, dto);
-        }else {
+        } else {
             return apArticleMapper.loadArticleListByIdList(list);
         }
     }

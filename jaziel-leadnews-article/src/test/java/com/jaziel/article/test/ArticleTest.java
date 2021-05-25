@@ -15,7 +15,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.SpringVersion;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
 /**
  * @author 王杰
  * @date 2021/5/18 20:57
