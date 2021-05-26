@@ -6,6 +6,10 @@ import org.apache.ibatis.type.Alias;
 
 import java.util.Date;
 
+/**
+ * app行为存储
+ * @author 王杰
+ */
 @Data
 public class ApBehaviorEntry {
     private Integer id;

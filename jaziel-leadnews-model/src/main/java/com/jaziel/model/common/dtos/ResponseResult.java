@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 /**
  * 通用的结果返回类
+ * @author 王杰
  * @param <T>
  */
 public class ResponseResult<T> implements Serializable {

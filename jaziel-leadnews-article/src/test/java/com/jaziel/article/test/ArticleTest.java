@@ -10,9 +10,7 @@ import com.jaziel.utils.threadlocal.AppThreadLocalUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringBootVersion;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.SpringVersion;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
@@ -25,14 +23,6 @@ public class ArticleTest {
 
     @Autowired
     private AppArticleService appArticleService;
-
-    @Test
-    public void getVersion(){
-        String version = SpringVersion.getVersion();
-        String version1 = SpringBootVersion.getVersion();
-        System.out.println(version);
-        System.out.println(version1);
-    }
 
     @Test
     public void testArticle(){
