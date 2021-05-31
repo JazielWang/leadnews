@@ -27,7 +27,7 @@ public class ArticleTest {
     @Test
     public void testArticle(){
         ApUser apUser = new ApUser();
-        apUser.setId(1l);
+        apUser.setId(2104l);
         AppThreadLocalUtils.setUser(apUser);
         ArticleHomeDto dto = new ArticleHomeDto();
         dto.setSize(1);

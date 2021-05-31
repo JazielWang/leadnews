@@ -15,6 +15,7 @@
         <module>jaziel-leadnews-apis</module>
         <module>jaziel-leadnews-article</module>
         <module>jaziel-leadnews-behavior</module>
+        <module>service-mycat</module>
     </modules>
 
     <parent>

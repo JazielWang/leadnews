@@ -6,6 +6,7 @@ import com.jaziel.model.behavior.dtos.ShowBehaviorDto;
 import com.jaziel.model.common.dtos.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class BehaviorController implements BehaviorControllerApi {
 
     @Override
     @GetMapping("/show_behavior")
-    public ResponseResult saveShowBehavior(ShowBehaviorDto dto) {
+    public ResponseResult saveShowBehavior(@RequestBody ShowBehaviorDto dto) {
         return appShowBehaviorService.saveShowBehavior(dto);
     }
 }

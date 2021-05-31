@@ -64,11 +64,16 @@ public class MysqlCoreConfig {
      */
     @Bean("mysqlCoreSqlSessionFactory")
     public SqlSessionFactoryBean mysqlCoreSqlSessionFactory(@Qualifier("mysqlCoreDataSource") DataSource mysqlCoreDataSource) throws IOException {
+
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
+        // 数据源
         sessionFactory.setDataSource(mysqlCoreDataSource);
+        //mapper文件存储的位置
         sessionFactory.setMapperLocations(resolver.getResources(this.getMapperFilePath()));
+        // 配置别名
         sessionFactory.setTypeAliasesPackage(this.getAliasesPackage());
+        //开启驼峰标识  user_name  --  》 userName
         org.apache.ibatis.session.Configuration mybatisConf = new org.apache.ibatis.session.Configuration();
         mybatisConf.setMapUnderscoreToCamelCase(true);
         sessionFactory.setConfiguration(mybatisConf);
