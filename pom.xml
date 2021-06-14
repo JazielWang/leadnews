@@ -317,12 +317,12 @@
                 <version>${kafka.version}</version>
                 <scope>test</scope>
             </dependency>
-
             <dependency>
                 <groupId>org.apache.kafka</groupId>
                 <artifactId>kafka-clients</artifactId>
                 <version>${kafka.client.version}</version>
             </dependency>
+
         </dependencies>
     </dependencyManagement>
 

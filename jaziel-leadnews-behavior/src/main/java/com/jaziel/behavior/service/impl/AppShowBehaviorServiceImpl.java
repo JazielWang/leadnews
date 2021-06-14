@@ -13,6 +13,7 @@ import com.jaziel.utils.threadlocal.AppThreadLocalUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -56,7 +57,8 @@ public class AppShowBehaviorServiceImpl implements AppShowBehaviorService {
         //根据行为实体id和文章列表id查询app行为表  ap_show_behavior
         List<ApShowBehavior> apShowBehaviorList = apShowBehaviorMapper.findListByEntryIdAndArticleIds(apBehaviorEntry.getId(), articleIds);
         //数据的过滤，需要删除表中已经存在的文章id
-        List<Integer> integers = Arrays.asList(articleIds);
+        List<Integer> integer = Arrays.asList(articleIds);
+        ArrayList<Integer> integers = new ArrayList<>(integer);
         if (!apShowBehaviorList.isEmpty()) {
             apShowBehaviorList.forEach(item -> {
                 Integer articleId = item.getArticleId();

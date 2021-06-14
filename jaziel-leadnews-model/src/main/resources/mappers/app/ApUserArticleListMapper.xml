@@ -22,10 +22,13 @@
         <where>
             user_id=#{user.id} and is_show=0 and is_read=0
             <!-- loadmore -->
+            <if test="type != null and type == 2">
+                and recommend_time <![CDATA[<]]> #{dto.minBehotTime}
+            </if>
             <if test="type != null and type == 1">
                 and recommend_time <![CDATA[<]]> #{dto.minBehotTime}
             </if>
-            <if test="type != null and type == 2">
+            <if test="type != null and type == 0">
                 and recommend_time <![CDATA[>]]> #{dto.maxBehotTime}
             </if>
             <if test="dto.tag != '__all__'">

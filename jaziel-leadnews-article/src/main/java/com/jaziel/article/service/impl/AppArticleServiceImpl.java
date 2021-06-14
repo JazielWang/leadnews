@@ -64,7 +64,7 @@ public class AppArticleServiceImpl implements AppArticleService {
         dto.setSize(size);
         // 类型参数校验
         if (!type.equals(ArticleConstans.LOADTYPE_LOAD_MORE) && !type.equals(ArticleConstans.LOADTYPE_LOAD_NEW)) {
-            type = ArticleConstans.LOADTYPE_LOAD_MORE;
+            type = ArticleConstans.LOADTYPE_LOAD;
         }
         // 文章频道参数验证
         if (StringUtils.isEmpty(tag)) {

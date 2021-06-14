@@ -99,10 +99,15 @@
                 and a.county_id=#{dto.countyId}
             </if>
             <!-- loadmore -->
+            <if test="type != null and type == 2">
+                and a.publish_time <![CDATA[<]]> #{dto.minBehotTime}
+            </if>
+            <!--load-->
             <if test="type != null and type == 1">
                 and a.publish_time <![CDATA[<]]> #{dto.minBehotTime}
             </if>
-            <if test="type != null and type == 2">
+            <!--loadnew-->
+            <if test="type != null and type == 0">
                 and a.publish_time <![CDATA[>]]> #{dto.maxBehotTime}
             </if>
             <if test="dto.tag != '__all__'">

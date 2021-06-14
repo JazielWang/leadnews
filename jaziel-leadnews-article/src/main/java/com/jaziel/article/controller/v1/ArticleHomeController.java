@@ -24,17 +24,20 @@ public class ArticleHomeController implements ArticleHomeControllerApi {
     @Override
     @GetMapping("/load")
     public ResponseResult load(ArticleHomeDto dto) {
-        return articleHomeDtoService.load(ArticleConstans.LOADTYPE_LOAD_MORE, dto);
+        System.out.println("load done");
+        return articleHomeDtoService.load(ArticleConstans.LOADTYPE_LOAD, dto);
     }
 
     @Override
-    @GetMapping("/loadMore")
+    @GetMapping("/loadmore")
     public ResponseResult loadMore(ArticleHomeDto dto) {
+        System.out.println("loadmore done");
         return articleHomeDtoService.load(ArticleConstans.LOADTYPE_LOAD_MORE, dto);
+
     }
 
     @Override
-    @GetMapping("/loadNew")
+    @GetMapping("/loadnew")
     public ResponseResult loadNew(ArticleHomeDto dto) {
         return articleHomeDtoService.load(ArticleConstans.LOADTYPE_LOAD_NEW, dto);
     }

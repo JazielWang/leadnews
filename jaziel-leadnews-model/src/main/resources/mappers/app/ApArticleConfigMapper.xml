@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jaziel.model.mappers.app.ApArticleConfigMapper">
+    <resultMap id="BaseResultMap" type="com.jaziel.model.article.pojos.ApArticleConfig">
+        <id property="id" column="id"/>
+        <result column="article_id" property="articleId" />
+        <result column="is_comment" property="isComment"/>
+        <result column="is_forward" property="isForward" />
+        <result column="is_down" property="isDown"/>
+        <result column="is_delete" property="isDelete"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, article_id, is_comment, is_forward, is_down, is_delete
+    </sql>
+
+    <select id="selectByArticleId" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/> from ap_article_config where
+        article_id = #{articleId}
+    </select>
+</mapper>
