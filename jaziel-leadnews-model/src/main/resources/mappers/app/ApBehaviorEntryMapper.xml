@@ -13,17 +13,16 @@
     </sql>
 
     <select id="findByUserIdOrEquipment" resultMap="BaseResultMap">
-        select *
-        from ap_behavior_entry a
-        <where>
-            <if test="userId != null">
-                and a.type = 1 and entry_id = #{userId}
-            </if>
-            <if test="equipmentId != null">
-                and a.type = 0 and entry_id = #{equipmentId}
-            </if>
-        </where>
+        <if test="userId!=null">
+            /*!mycat:sql=select id from ap_behavior_entry where burst='0-${userId}'*/
+            select * from ap_behavior_entry a where a.entry_id=#{userId} and type=1
+            limit 1
+        </if>
+        <if test="userId==null and equipmentId!=null">
+            /*!mycat:sql=select id from ap_behavior_entry where
+            burst='0-${equipmentId}'*/
+            select * from ap_behavior_entry a where a.entry_id=#{equipmentId} and
+            type=0 limit 1
+        </if>
     </select>
-
-
 </mapper>

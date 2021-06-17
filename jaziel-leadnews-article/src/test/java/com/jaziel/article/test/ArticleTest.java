@@ -1,6 +1,6 @@
 package com.jaziel.article.test;
 
-import com.jaziel.article.ArticleApplication;
+import com.jaziel.article.ArticleJarApplication;
 import com.jaziel.article.service.AppArticleService;
 import com.jaziel.common.article.constans.ArticleConstans;
 import com.jaziel.model.article.dtos.ArticleHomeDto;
@@ -17,7 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author 王杰
  * @date 2021/5/18 20:57
  */
-@SpringBootTest(classes = ArticleApplication.class)
+@SpringBootTest(classes = ArticleJarApplication.class)
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ArticleTest {
 

@@ -28,7 +28,8 @@ public class ArticleInfoController implements ArticleInfoControllerApi {
     }
 
     @Override
-    public ResponseResult loadArticleBehavior(ArticleInfoDto dto) {
-        return null;
+    @PostMapping("/load_article_behavior")
+    public ResponseResult loadArticleBehavior(@RequestBody ArticleInfoDto dto) {
+        return appArticleInfoService.loadArticleBehavior(dto);
     }
 }
