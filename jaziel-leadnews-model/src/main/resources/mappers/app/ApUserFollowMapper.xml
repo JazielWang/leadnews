@@ -19,4 +19,16 @@
         select * from ap_user_follow where user_id = #{userId} and follow_id = #{followId}
     </select>
 
+    <delete id="deleteByFollowId">
+        /*!mycat:sql=select id from ap_user_follow where burst='${burst}'*/
+        delete from ap_user_follow where user_id = #{userId} and follow_id = #{followId}
+    </delete>
+    <insert id="insert" parameterType="com.jaziel.model.user.pojos.ApUserFollow" >
+        insert into ap_user_follow (user_id, follow_id,
+                                    follow_name, level, is_notice,
+                                    created_time,burst)
+        values (#{userId}, #{followId},
+                #{followName}, #{level}, #{isNotice},
+                #{createdTime},#{burst})
+    </insert>
 </mapper>

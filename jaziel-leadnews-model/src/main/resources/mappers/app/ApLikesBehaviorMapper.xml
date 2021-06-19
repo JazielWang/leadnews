@@ -15,10 +15,7 @@
         id, behavior_entry_id, entry_id, type, operation, created_time,burst
     </sql>
     <select id="selectLastLike" resultMap="BaseResultMap">
-        /*!mycat:sql=
-        select id
-        from ap_likes_behavior
-        where burst = '${burst}'*/
+        /*!mycat:sql= select id from ap_likes_behavior where burst = '${burst}'*/
         select *
         from ap_likes_behavior
         where behavior_entry_id = #{objectId}

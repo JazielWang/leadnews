@@ -17,6 +17,7 @@ public class UserRelationDto {
     // 文章
     @IdEncrypt
     Integer articleId;
+
     /**
      * 操作方式
      * 0  关注
