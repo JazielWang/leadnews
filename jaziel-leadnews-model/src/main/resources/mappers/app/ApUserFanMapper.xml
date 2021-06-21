@@ -29,11 +29,11 @@ is_shield_letter,is_shield_comment
         delete from ap_user_fan where user_id = #{userId} and fans_id = #{fansId}
     </delete>
     <insert id="insert" parameterType="com.jaziel.model.user.pojos.ApUserFan" >
-        insert into ap_user_fan (user_id, fans_id,
+        insert into ap_user_fan (id, user_id, fans_id,
                                  fans_name, level, created_time,
                                  is_display, is_shield_letter, is_shield_comment,burst
         )
-        values (#{userId}, #{fansId},
+        values (#{id}, #{userId}, #{fansId},
                 #{fansName}, #{level}, #{createdTime},
                 #{isDisplay}, #{isShieldLetter}, #{isShieldComment},#{burst}
                )

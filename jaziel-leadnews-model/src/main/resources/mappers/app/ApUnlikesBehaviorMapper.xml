@@ -12,6 +12,11 @@
     <sql id="Base_Column_List">
         id, entry_id, type, created_time
     </sql>
+    <insert id="insert" parameterType="com.jaziel.model.behavior.pojos.ApUnlikesBehavior">
+        insert into ap_unlikes_behavior (entry_id, article_id, type,
+                                         created_time)
+        values (#{entryId}, #{articleId}, #{type,jdbcType=TINYINT}, #{createdTime})
+    </insert>
     <select id="selectLastUnLike" resultMap="BaseResultMap">
         select *
         from ap_unlikes_behavior
@@ -20,4 +25,6 @@
         order by created_time desc
         limit 1
     </select>
+
+
 </mapper>

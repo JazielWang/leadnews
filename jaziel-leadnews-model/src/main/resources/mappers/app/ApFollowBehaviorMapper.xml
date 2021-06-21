@@ -14,8 +14,7 @@
     </sql>
     <insert id="insert"
             parameterType="com.jaziel.model.behavior.pojos.ApFollowBehavior">
-        insert into ap_follow_behavior (entry_id, article_id, follow_id,
-                                        created_time)
+        insert into ap_follow_behavior (entry_id, article_id, follow_id, created_time)
         values (#{entryId}, #{articleId}, #{followId}, #{createdTime})
     </insert>
 </mapper>

@@ -13,4 +13,11 @@ public interface ApUnlikesBehaviorMapper {
      * @return
      */
     ApUnlikesBehavior selectLastUnLike(@Param("entryId") Integer entryId, @Param("articleId") Integer articleId);
+
+    /**
+     * 保存不喜欢行为
+     * @param record
+     * @return
+     */
+    int insert(ApUnlikesBehavior record);
 }
