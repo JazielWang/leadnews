@@ -17,6 +17,7 @@
         <module>jaziel-leadnews-behavior</module>
         <module>service-mycat</module>
         <module>jaziel-leadnews-user</module>
+        <module>jaziel-leadnews-login</module>
     </modules>
 
     <parent>
