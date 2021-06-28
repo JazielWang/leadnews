@@ -33,4 +33,15 @@
         set status = 0
         where entry_id = #{entryId} and status = 1
     </update>
+
+    <insert id="insert" parameterType="com.jaziel.model.user.pojos.ApUserSearch" >
+        insert into ap_user_search (entry_id, keyword, status,created_time)
+        values (#{entryId}, #{keyword}, #{status},#{createdTime})
+    </insert>
+    <select id="checkExist" resultType="java.lang.Integer">
+        select
+            count(1)
+        from ap_user_search
+        where entry_id = #{entryId} and keyword = #{keyword} and status = 1
+    </select>
 </mapper>

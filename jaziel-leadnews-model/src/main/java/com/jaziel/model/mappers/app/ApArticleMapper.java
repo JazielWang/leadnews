@@ -22,12 +22,11 @@ public interface ApArticleMapper {
 
     /**
      * 照用户地理位置，加载文章
-     *
      * @param dto  参数封装对象
      * @param type 加载方向
      * @return
      */
-    List<ApArticle> loadArticleListByLocation(@Param("dto") ArticleHomeDto dto, @Param("type") short type);
+    List<ApArticle> loadArticleListByLocation(@Param("dto") ArticleHomeDto dto, @Param("type") Short type);
 
     /**
      * 依据文章IDS来获取文章详细内容

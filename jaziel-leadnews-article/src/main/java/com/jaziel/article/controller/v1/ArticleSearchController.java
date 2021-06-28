@@ -38,4 +38,22 @@ public class ArticleSearchController implements ArticleSearchControllerApi {
     public ResponseResult cleanUserSearch(UserSearchDto dto) {
         return appArticleSearchService.clearUserSearch(dto);
     }
+
+    @Override
+    @PostMapping("/load_hot_keywords")
+    public ResponseResult hotWordSearch(@RequestBody UserSearchDto dto) {
+        return appArticleSearchService.hotKeywords(dto.getHotDate());
+    }
+
+    @Override
+    @PostMapping("/associate_search")
+    public ResponseResult associateSearch(@RequestBody UserSearchDto dto) {
+        return appArticleSearchService.searchAssociate(dto);
+    }
+
+    @Override
+    @PostMapping("/article_search")
+    public ResponseResult esArticleSearch(@RequestBody UserSearchDto userSearchDto) {
+        return appArticleSearchService.esArticleSearch(userSearchDto);
+    }
 }

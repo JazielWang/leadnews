@@ -33,6 +33,7 @@ public class ArticleSearchControllerTest {
     @Autowired
     ObjectMapper mapper;
 
+
     @Test
     public void findHis() throws Exception {
         UserSearchDto dto = new UserSearchDto();
@@ -54,6 +55,40 @@ public class ArticleSearchControllerTest {
         list.add(apUserSearch);
         dto.setHisList(list);
         MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/search/del_history");
+        builder.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper.writeValueAsBytes(dto));
+        mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void hotWord() throws Exception {
+        UserSearchDto dto = new UserSearchDto();
+        dto.setHotDate("2019-07-24");
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/search/load_hot_keywords");
+        builder.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper.writeValueAsBytes(dto));
+        mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void associateSearch() throws Exception {
+        UserSearchDto dto = new UserSearchDto();
+        dto.setPageSize(20);
+        dto.setSearchWords("jaziel");
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/search/associate_search");
+        builder.contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(mapper.writeValueAsBytes(dto));
+        mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void ESSearch() throws Exception {
+        UserSearchDto dto = new UserSearchDto();
+        dto.setEquipmentId(1);
+        dto.setSearchWords("学习");
+        dto.setPageSize(20);
+        dto.setPageNum(1);
+        MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post("/api/v1/article/search/article_search");
         builder.contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(mapper.writeValueAsBytes(dto));
         mockMvc.perform(builder).andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());

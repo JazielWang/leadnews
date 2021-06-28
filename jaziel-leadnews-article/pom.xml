@@ -12,6 +12,7 @@
     <artifactId>jaziel-leadnews-article</artifactId>
 
     <dependencies>
+        <!-- 引入依赖模块 -->
         <dependency>
             <groupId>org.example</groupId>
             <artifactId>jaziel-leadnews-model</artifactId>
@@ -47,6 +48,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jsoup</groupId>
@@ -60,5 +62,14 @@
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-xml</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

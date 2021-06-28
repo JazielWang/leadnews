@@ -11,4 +11,11 @@ public interface ArticleSearchControllerApi {
     ResponseResult findUserSearch(UserSearchDto dto);
     ResponseResult delUserSearch(UserSearchDto dto);
     ResponseResult cleanUserSearch(UserSearchDto dto);
+    ResponseResult hotWordSearch(UserSearchDto dto);
+    ResponseResult associateSearch(UserSearchDto dto);
+    /**
+     ES文章分页搜索
+     @return
+     */
+    ResponseResult esArticleSearch(UserSearchDto userSearchDto);
 }
