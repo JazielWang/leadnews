@@ -1,4 +1,4 @@
-package com.jaziel.apis;
+package com.jaziel.apis.article;
 
 import com.jaziel.model.article.dtos.ArticleInfoDto;
 import com.jaziel.model.common.dtos.ResponseResult;

@@ -1,6 +1,6 @@
 package com.jaziel.login.controller.v1;
 
-import com.jaziel.apis.LoginControllerApi;
+import com.jaziel.apis.login.LoginControllerApi;
 import com.jaziel.login.service.ApUserLoginService;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.user.pojos.ApUser;

@@ -1,6 +1,6 @@
 package com.jaziel.user.controller.v1;
 
-import com.jaziel.apis.UserRelationControllerApi;
+import com.jaziel.apis.user.UserRelationControllerApi;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.user.dtos.UserRelationDto;
 import com.jaziel.user.service.AppUserRelationService;

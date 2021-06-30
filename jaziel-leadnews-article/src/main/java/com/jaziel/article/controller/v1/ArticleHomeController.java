@@ -1,6 +1,6 @@
 package com.jaziel.article.controller.v1;
 
-import com.jaziel.apis.ArticleHomeControllerApi;
+import com.jaziel.apis.article.ArticleHomeControllerApi;
 import com.jaziel.article.service.AppArticleService;
 import com.jaziel.common.article.constans.ArticleConstans;
 import com.jaziel.model.article.dtos.ArticleHomeDto;

@@ -1,4 +1,4 @@
-package com.jaziel.apis;
+package com.jaziel.apis.behavior;
 
 import com.jaziel.model.behavior.dtos.LikesBehaviorDto;
 import com.jaziel.model.behavior.dtos.ReadBehaviorDto;

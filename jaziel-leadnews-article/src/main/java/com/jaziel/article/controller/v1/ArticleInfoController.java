@@ -1,6 +1,6 @@
 package com.jaziel.article.controller.v1;
 
-import com.jaziel.apis.ArticleInfoControllerApi;
+import com.jaziel.apis.article.ArticleInfoControllerApi;
 import com.jaziel.article.service.AppArticleInfoService;
 import com.jaziel.model.article.dtos.ArticleInfoDto;
 import com.jaziel.model.common.dtos.ResponseResult;

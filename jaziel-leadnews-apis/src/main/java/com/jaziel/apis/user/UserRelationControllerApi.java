@@ -1,4 +1,4 @@
-package com.jaziel.apis;
+package com.jaziel.apis.user;
 
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.user.dtos.UserRelationDto;

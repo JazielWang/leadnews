@@ -1,6 +1,6 @@
 package com.jaziel.article.controller.v1;
 
-import com.jaziel.apis.ArticleSearchControllerApi;
+import com.jaziel.apis.article.ArticleSearchControllerApi;
 import com.jaziel.article.service.AppArticleSearchService;
 import com.jaziel.model.article.dtos.UserSearchDto;
 import com.jaziel.model.common.dtos.ResponseResult;

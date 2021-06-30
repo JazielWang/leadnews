@@ -1,6 +1,6 @@
 package com.jaziel.behavior.controller.v1;
 
-import com.jaziel.apis.BehaviorControllerApi;
+import com.jaziel.apis.behavior.BehaviorControllerApi;
 import com.jaziel.behavior.service.AppLikesBehaviorService;
 import com.jaziel.behavior.service.AppReadBehaviorService;
 import com.jaziel.behavior.service.AppShowBehaviorService;
