@@ -8,6 +8,7 @@
         <result column="user_id" property="userId"/>
         <result column="created_time" property="createdTime"/>
     </resultMap>
+
     <select id="selectById" resultMap="BaseResultMap">
         select * from ap_author where id=#{id}
     </select>

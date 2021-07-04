@@ -5,6 +5,7 @@ import com.jaziel.media.service.UserLoginService;
 import com.jaziel.model.common.dtos.ResponseResult;
 import com.jaziel.model.media.pojos.WmUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +22,7 @@ public class LoginController implements LoginControllerApi {
 
     @Override
     @RequestMapping("/in")
-    public ResponseResult login(WmUser user) {
+    public ResponseResult login(@RequestBody WmUser user) {
         return userLoginService.login(user);
     }
 }

@@ -12,6 +12,11 @@
     <artifactId>jaziel-leadnews-article</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>5.1.7.RELEASE</version>
+        </dependency>
         <!-- 引入依赖模块 -->
         <dependency>
             <groupId>org.example</groupId>
