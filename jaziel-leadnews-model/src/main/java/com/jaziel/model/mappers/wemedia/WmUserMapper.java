@@ -9,4 +9,6 @@ public interface WmUserMapper {
      * @return 粉丝对象
      */
     WmUser selectByName(String name);
+
+    WmUser selectById(Long id);
 }

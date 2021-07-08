@@ -6,4 +6,17 @@
         from wm_news_material
         where material_id = #{mid}
     </select>
+    <insert id="saveRelationsByContent">
+        insert into wm_news_material (material_id, news_id, type, ord)
+        values
+        <foreach item="mid" index="ord" collection="materials.entrySet()"
+                 separator=",">
+            (#{mid}, #{newsId}, #{type}, #{ord})
+        </foreach>
+    </insert>
+    <delete id="delByNewsId">
+        delete
+        from wm_news_material
+        where news_id = #{nid}
+    </delete>
 </mapper>

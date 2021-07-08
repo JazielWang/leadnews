@@ -1,4 +1,4 @@
-package com.heima.model.admin.pojos;
+package com.jaziel.model.admin.pojos;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
