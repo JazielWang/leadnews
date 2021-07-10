@@ -11,11 +11,16 @@ public enum CommonTableEnum {
     AP_ARTICLE_CONFIG("*",true,false,true,false),
     AP_USER("*",true,false,true,false);
 
+    // 条件
     String filed;
-    boolean list;//开启列表权限？
-    boolean add;//开启增加权限？
-    boolean update;//开启修改权限？
-    boolean delete;//开启删除权限？
+    //开启列表权限？
+    boolean list;
+    //开启增加权限？
+    boolean add;
+    //开启修改权限？
+    boolean update;
+    //开启删除权限？
+    boolean delete;
 
     CommonTableEnum(String filed,boolean list,boolean add,boolean update,boolean delete){
         this.filed = filed;

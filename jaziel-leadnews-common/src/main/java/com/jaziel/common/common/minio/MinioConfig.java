@@ -20,12 +20,12 @@ public class MinioConfig{
     private String secretKey;
     private Boolean secure;
     private String bucketName;
-    
+
     @Bean
     public MinioClient MinioClient() throws Exception {
         MinioClient minioClient = MinioClient.builder().endpoint(endpoint, port, secure)
-                        .credentials(accessKey, secretKey)
-                        .build();
+                .credentials(accessKey, secretKey)
+                .build();
         return minioClient;
     }
 }

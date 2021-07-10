@@ -19,6 +19,7 @@
         <module>jaziel-leadnews-user</module>
         <module>jaziel-leadnews-login</module>
         <module>heima-leadnews-media</module>
+        <module>jaziel-leadnews-admin</module>
     </modules>
 
     <parent>
