@@ -91,13 +91,13 @@ public class CommonServiceImpl implements CommonService {
         if (dto.getWhere() != null) {
             dto.getWhere().stream().forEach(w -> {
                 // 字段不为空，并且字段和值不能相等（防止凭借真条件）
-                if (StringUtils.isNotEmpty(w.getField()) && StringUtils.isNotEmpty(w.getValue()) &&
-                        !w.getField().equalsIgnoreCase(w.getValue())) {
-                    String tempF = parseValue(w.getField());
+                if (StringUtils.isNotEmpty(w.getFiled()) && StringUtils.isNotEmpty(w.getValue()) &&
+                        !w.getFiled().equalsIgnoreCase(w.getValue())) {
+                    String tempF = parseValue(w.getFiled());
                     String tempV = parseValue(w.getValue());
                     String tempT = w.getType();
                     if (!tempF.matches("\\d*") && !tempF.equalsIgnoreCase(tempV)) {
-                        if ("=".equals(tempT)) {
+                        if ("eq".equals(tempT)) {
                             where.append(" and ").append(tempF).append("=\'").append(tempV).append("\'");
                         } else if ("like".equals(tempT)) {
                             where.append(" and ").append(tempF).append(" like ").append("\'%").append(tempV).append("%\'");
@@ -172,7 +172,7 @@ public class CommonServiceImpl implements CommonService {
                 if (StringUtils.isEmpty(w.getValue())) {
                     count.incrementAndGet();
                 } else {
-                    String tempF = parseValue(w.getField());
+                    String tempF = parseValue(w.getFiled());
                     String tempV = parseValue(w.getValue());
                     if (!tempF.matches("\\d*") && !tempF.equalsIgnoreCase(tempV)) {
                         if (sets.length() > 0) {
@@ -198,6 +198,7 @@ public class CommonServiceImpl implements CommonService {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
         int temp = commonDao.insert(tableName, sql[0], sql[1]);
+
         if (temp > 0) {
             doFilter(dto, "add");
         }
@@ -213,7 +214,7 @@ public class CommonServiceImpl implements CommonService {
                 if (w.getValue() == null) {
                     count.incrementAndGet();
                 } else {
-                    String tempF = parseValue(w.getField());
+                    String tempF = parseValue(w.getFiled());
                     String tempV = parseValue(w.getValue());
                     if (!tempF.equalsIgnoreCase(tempV) && !tempF.matches("\\d*")) {
                         if (fields.length() > 0) {
@@ -221,7 +222,7 @@ public class CommonServiceImpl implements CommonService {
                             values.append(",");
                         }
                         fields.append(tempF);
-                        values.append(tempV);
+                        values.append("\'").append(tempV).append("\'");
                     }
                 }
             });

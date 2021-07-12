@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @ComponentScan("com.jaziel.common.mysql.core")
-@MapperScan("com.jaziel.admin.dao")
+@MapperScan("com.jaziel.admin.dto")
 public class MysqlConfig {
 }

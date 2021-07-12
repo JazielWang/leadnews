@@ -23,7 +23,7 @@ public interface BaseCommonFilter {
      */
     default CommonWhereDto findUpdateValue(String field, CommonDto dto) {
         for (CommonWhereDto set : dto.getSets()) {
-            if (field.equals(set.getField())) {
+            if (field.equals(set.getFiled())) {
                 return set;
             }
         }
@@ -40,7 +40,7 @@ public interface BaseCommonFilter {
     default CommonWhereDto findWhereValue(String field, CommonDto dto) {
         if (dto != null) {
             for (CommonWhereDto cw : dto.getWhere()) {
-                if (field.equals(cw.getField())) {
+                if (field.equals(cw.getFiled())) {
                     return cw;
                 }
             }

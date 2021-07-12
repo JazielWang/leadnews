@@ -33,7 +33,7 @@ public interface CommonDao {
     @Select("select * from ${tableName} where 1=1 ${where} limit ${start},${size}")
     @ResultType(HashMap.class)
     List<HashMap> listForWhere(@Param("tableName") String tableName, @Param("where") String where, @Param("start") int start, @Param("size")
-                                       int size);
+            int size);
 
     @Select("select count(*) from ${tableName} where 1=1 ${where}")
     @ResultType(Integer.class)
@@ -41,12 +41,16 @@ public interface CommonDao {
 
     @Update("update ${tableName} set ${sets} where 1=1 ${where}")
     @ResultType(Integer.class)
-    int update(@Param("tableName") String tableName, @Param("where") String where, @Param("sets") String sets);
+    int update(@Param("tableName") String tableName, @Param("where") String
+            where, @Param("sets") String sets);
 
-    @Insert("insert into ${tableName} (${fields}) values (${values})")
+    @Insert("insert into ${tableName} (${fileds}) values (${values})")
     @ResultType(Integer.class)
-    int insert(@Param("tableName") String tableName, @Param("fields") String fields, @Param("values") String values);
+    int insert(@Param("tableName") String tableName, @Param("fileds") String
+            fileds, @Param("values") String values);
 
     @Delete("delete from ${tableName} where 1=1 ${where} limit 1")
-    int delete(@Param("tableName") String tableName, @Param("where") String where);
+    @ResultType(Integer.class)
+    int delete(@Param("tableName") String tableName, @Param("where") String
+            where);
 }

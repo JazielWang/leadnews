@@ -34,6 +34,7 @@ public class AdminCheckSignFilter extends GenericFilterBean {
     // URL有效果的验签效果
     public final static int URL_TIMEOUT = 2 * 60 * 1000;
 
+    @Override
     public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) req;
         String uri = request.getRequestURI();
