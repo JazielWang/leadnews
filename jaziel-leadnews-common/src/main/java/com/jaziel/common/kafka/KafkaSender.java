@@ -1,11 +1,14 @@
 package com.jaziel.common.kafka;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jaziel.common.kafka.message.admin.SubmitArticleAuthMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
+
+import java.util.UUID;
 
 @Component
 public class KafkaSender {
@@ -46,5 +49,14 @@ public class KafkaSender {
         }catch (Exception e){
             logger.error("send message to [{}] error:",topic,e);
         }
+    }
+
+    /**
+     * 发送审核文章的消息
+     * @param message
+     */
+    public void sendSubmitArticleAuthMessage(SubmitArticleAuthMessage message) {
+        this.sendMesssage(kafkaTopicConfig.getSubmitArticleAuth(),
+                UUID.randomUUID().toString(), message);
     }
 }

@@ -11,5 +11,5 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:kafka.properties")
 public class KafkaTopicConfig {
     //String adminTest;
-
+    String submitArticleAuth;
 }

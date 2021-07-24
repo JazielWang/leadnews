@@ -2,6 +2,8 @@ package com.jaziel.media.service.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaziel.common.common.contants.WmMediaConstans;
+import com.jaziel.common.kafka.message.admin.SubmitArticleAuthMessage;
+import com.jaziel.media.kafka.AdminMessageSender;
 import com.jaziel.media.service.NewsService;
 import com.jaziel.model.common.dtos.PageResponseResult;
 import com.jaziel.model.common.dtos.ResponseResult;
@@ -15,6 +17,7 @@ import com.jaziel.model.media.dtos.WmNewsPageReqDto;
 import com.jaziel.model.media.pojos.WmMaterial;
 import com.jaziel.model.media.pojos.WmNews;
 import com.jaziel.model.media.pojos.WmUser;
+import com.jaziel.model.mess.admin.SubmitArticleAuto;
 import com.jaziel.utils.threadlocal.WmThreadLocalUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -103,7 +106,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public ResponseResult listByUser(WmNewsPageReqDto dto) {
-        if (dto == null){
+        if (dto == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID);
         }
         //检测参数
@@ -135,7 +138,7 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public ResponseResult delWmNewsById(WmNewsDto dto) {
-        if (dto == null && dto.getId() == null){
+        if (dto == null && dto.getId() == null) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "文章不存在");
         }
         WmNews wmNews = wmNewsMapper.selectByPrimaryKey(dto.getId());
@@ -143,7 +146,7 @@ public class NewsServiceImpl implements NewsService {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "文章不存在");
         }
         //判断是否审核通过
-        if (wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_PUBLISH_STATUS) || wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_AUTHED_STATUS)){
+        if (wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_PUBLISH_STATUS) || wmNews.getStatus().equals(WmMediaConstans.WM_NEWS_AUTHED_STATUS)) {
             return ResponseResult.errorResult(AppHttpCodeEnum.PARAM_INVALID, "文章已审核，无法删除");
         }
         wmNewsMaterialMapper.delByNewsId(dto.getId());
@@ -300,6 +303,9 @@ public class NewsServiceImpl implements NewsService {
                 WmMediaConstans.WM_CONTENT_REFERENCE);
     }
 
+    @Autowired
+    private AdminMessageSender adminMessageSender;
+
     /**
      * 保存/修改发布文章信息
      *
@@ -322,10 +328,19 @@ public class NewsServiceImpl implements NewsService {
         wmNews.setCreatedTime(new Date());
         wmNews.setSubmitedTime(new Date());
 //        wmNews.setEnable((short) 1);
+        int temp = 0;
         if (wmNews.getId() == null) {
-            wmNewsMapper.insertNewsForEdit(wmNews);
+            temp = wmNewsMapper.insertNewsForEdit(wmNews);
         } else {
-            wmNewsMapper.updateByPrimaryKey(wmNews);
+            temp = wmNewsMapper.updateByPrimaryKey(wmNews);
+        }
+
+        // 提交才进行发送消息
+        if (temp == 1 && WmMediaConstans.WM_NEWS_SUMMIT_STATUS == type) {
+            SubmitArticleAuto saa = new SubmitArticleAuto();
+            saa.setArticleId(wmNews.getId());
+            saa.setType(SubmitArticleAuto.ArticleType.WEMEDIA);
+            adminMessageSender.sendMessage(new SubmitArticleAuthMessage(saa));
         }
     }
 }

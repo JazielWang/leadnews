@@ -14,6 +14,7 @@ import com.jaziel.utils.threadlocal.AppThreadLocalUtils;
 import org.mybatis.logging.Logger;
 import org.mybatis.logging.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -36,7 +37,7 @@ public class AppFollowBehaviorServiceImpl implements AppFollowBehaviorService {
     private Sequences sequences;
 
     @Override
-    //@Async("async")
+    @Async
     public ResponseResult saveFollowBehavior(FollowBehaviorDto dto) {
         ApUser user = AppThreadLocalUtils.getUser();
         if (user == null && dto.getEquipmentId() == null) {

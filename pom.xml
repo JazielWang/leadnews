@@ -20,6 +20,7 @@
         <module>jaziel-leadnews-login</module>
         <module>heima-leadnews-media</module>
         <module>jaziel-leadnews-admin</module>
+        <module>jaziel-leadnews-crawler</module>
     </modules>
 
     <parent>
