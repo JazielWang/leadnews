@@ -4,3 +4,4 @@ target/
 # IDEA #
 .idea/
 *.iml
+aliyun.properties

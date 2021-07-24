@@ -8,4 +8,5 @@ import com.jaziel.model.article.pojos.ApArticleConfig;
  */
 public interface ApArticleConfigMapper {
     ApArticleConfig selectByArticleId(Integer articleId);
+    int insert(ApArticleConfig apArticleConfig);
 }

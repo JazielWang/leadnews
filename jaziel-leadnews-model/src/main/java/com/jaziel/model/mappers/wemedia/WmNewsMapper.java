@@ -11,6 +11,7 @@ import java.util.List;
  * @date 2021/7/5 19:14
  */
 public interface WmNewsMapper {
+    int updateByPrimaryKeySelective(WmNews record);
     /**
      * 根据主键修改
      *

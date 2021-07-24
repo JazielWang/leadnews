@@ -12,9 +12,9 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.http.ProtocolType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.google.api.client.repackaged.org.apache.commons.codec.binary.StringUtils;
 import lombok.Getter;
 import lombok.Setter;
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
@@ -35,7 +35,7 @@ public class AliyunImageScanRequest {
     private String secret;
 
     public String imageScanRequest(List<String> images) throws Exception {
-        IClientProfile profile = DefaultProfile.getProfile("cnshanghai",
+        IClientProfile profile = DefaultProfile.getProfile("cn-shanghai",
                 accessKey, secret);
         DefaultProfile.addEndpoint("cn-shanghai", "cn-shanghai", "Green",
                 "green.cn-shanghai.aliyuncs.com");

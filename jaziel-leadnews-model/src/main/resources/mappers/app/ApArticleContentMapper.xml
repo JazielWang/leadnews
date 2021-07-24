@@ -21,4 +21,8 @@
         from ap_article_content
         where article_id = #{articleId}
     </select>
+    <insert id="insert"
+            parameterType="com.jaziel.model.article.pojos.ApArticleContent">
+        insert into ap_article_content (article_id,content) values (#{articleId},#{content})
+    </insert>
 </mapper>

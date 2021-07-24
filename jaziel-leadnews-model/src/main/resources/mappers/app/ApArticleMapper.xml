@@ -205,5 +205,4 @@
         UPDATE ap_article SET sync_status = #{syncStatus} WHERE id=#{id}
     </update>
 
-
 </mapper>
