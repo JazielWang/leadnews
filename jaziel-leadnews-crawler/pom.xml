@@ -13,12 +13,12 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>heima-leadnews-model</artifactId>
+            <groupId>org.example</groupId>
+            <artifactId>jaziel-leadnews-model</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>heima-leadnews-common</artifactId>
+            <groupId>org.example</groupId>
+            <artifactId>jaziel-leadnews-common</artifactId>
             <exclusions>
                 <exclusion>
                     <artifactId>logback-classic</artifactId>
@@ -31,10 +31,9 @@
             </exclusions>
         </dependency>
         <dependency>
-            <groupId>com.heima</groupId>
-            <artifactId>heima-leadnews-apis</artifactId>
+            <groupId>org.example</groupId>
+            <artifactId>jaziel-leadnews-apis</artifactId>
         </dependency>
-
         <!-- Spring cloud starter -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -147,6 +146,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-autoconfigure</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
         </dependency>
     </dependencies>
 

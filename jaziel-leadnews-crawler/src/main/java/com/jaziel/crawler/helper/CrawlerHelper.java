@@ -1,11 +1,11 @@
-package com.heima.crawler.helper;
+package com.jaziel.crawler.helper;
 
 import com.alibaba.fastjson.JSONObject;
-import com.heima.model.crawler.core.callback.DataValidateCallBack;
-import com.heima.model.crawler.core.cookie.CrawlerHtml;
-import com.heima.model.crawler.core.parse.ParseItem;
-import com.heima.model.crawler.core.parse.impl.CrawlerParseItem;
-import com.heima.model.crawler.enums.CrawlerEnum;
+import com.jaziel.model.crawler.core.cookie.CrawlerHtml;
+import com.jaziel.model.crawler.core.parse.ParseItem;
+import com.jaziel.model.crawler.core.parse.impl.CrawlerParseItem;
+import com.jaziel.model.crawler.enums.CrawlerEnum;
+import com.jaziel.model.crawler.core.callback.DataValidateCallBack;
 import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
 import us.codecraft.webmagic.Page;

@@ -27,8 +27,14 @@ public class CrawlerProxyProvider {
      * 随机数生成器，用以随机获取代理IP
      */
     private Random random = new Random();
-
+    /**
+     * 是否启动代理IP
+     */
     private boolean isUsedProxyIp = true;
+    /**
+     * 动态代理IP自动更新阈值
+     */
+    private int proxyIpUpdateThreshold = 10;
 
     public CrawlerProxyProvider() {
     }
@@ -45,7 +51,8 @@ public class CrawlerProxyProvider {
      * ip池回调
      */
     private ProxyProviderCallBack proxyProviderCallBack;
-    
+
+
     /**
      * 随机获取一个代理IP保证每次请求使用的IP都不一样
      *
@@ -62,21 +69,34 @@ public class CrawlerProxyProvider {
         } finally {
             readLock.unlock();
         }
-
         return crawlerProxy;
     }
 
     public void updateProxy() {
         //不使用代理IP 则不进行更新
-        if (!isUsedProxyIp) {
-            return;
-        }
-        if (null != proxyProviderCallBack) {
+        if (isUsedProxyIp && null != proxyProviderCallBack) {
             writeLock.lock();
             try {
                 crawlerProxyList = proxyProviderCallBack.getProxyList();
             } finally {
                 writeLock.unlock();
+            }
+        }
+    }
+
+    /**
+     * 设置代理IP不可用
+     *
+     * @param proxy
+     */
+    public void unavailable(CrawlerProxy proxy) {
+        if (isUsedProxyIp) {
+            writeLock.lock();
+            crawlerProxyList.remove(proxy);
+            writeLock.unlock();
+//            proxyProviderCallBack.unvailable(proxy);
+            if (crawlerProxyList.size() <= proxyIpUpdateThreshold) {
+                updateProxy();
             }
         }
     }
@@ -105,4 +125,5 @@ public class CrawlerProxyProvider {
     public void setProxyProviderCallBack(ProxyProviderCallBack proxyProviderCallBack) {
         this.proxyProviderCallBack = proxyProviderCallBack;
     }
+
 }

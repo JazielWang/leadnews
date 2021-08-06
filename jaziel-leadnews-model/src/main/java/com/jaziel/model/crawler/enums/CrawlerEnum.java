@@ -24,12 +24,24 @@ public class CrawlerEnum {
         HTML, JSON
     }
 
+    /**
+     * 抓取文档类型
+     * INIT 初始化类型
+     * <p>
+     * HELP 列表页
+     * <p>
+     * PAGE 需要抓取的页面
+     */
+    public enum DocumentType {
+        INIT, HELP, PAGE, OTHER
+    }
+
 
     /**
      * 抓取类型
      */
     public enum ComponentType {
-        NORMAL, PAGEPROCESSOR, PIPELINE, DOWNLOAD
+        NORMAL, PAGEPROCESSOR, PIPELINE, DOWNLOAD,SCHEDULER
     }
 
     public enum HtmlType {
@@ -69,6 +81,5 @@ public class CrawlerEnum {
             return dataType;
         }
     }
-
 
 }
