@@ -86,6 +86,7 @@ public class CrawlerParseItem extends ParseItem {
     private String compressContent;
 
 
+    @Override
     public String getInitialUrl() {
         return getUrl();
     }

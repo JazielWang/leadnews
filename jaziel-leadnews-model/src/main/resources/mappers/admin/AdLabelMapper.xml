@@ -49,8 +49,8 @@
         <selectKey resultType="java.lang.Integer" order="AFTER" keyColumn="id" keyProperty="id">
             select last_insert_id()
         </selectKey>
-        insert into ad_label (id, name, type, created_time)
-        values (#{id}, #{name}, #{type}, #{createdTime})
+        insert into ad_label (name, type, created_time)
+        values (#{name}, #{type}, #{createdTime})
     </insert>
     <insert id="insertSelective"
             parameterType="com.jaziel.model.admin.pojos.AdLabel">
@@ -59,9 +59,7 @@
         </selectKey>
         insert into ad_label
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="id != null">
-                id,
-            </if>
+
             <if test="name != null">
                 name,
             </if>

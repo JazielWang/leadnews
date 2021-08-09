@@ -7,6 +7,7 @@ import com.jaziel.crawler.factory.CrawlerProxyFactory;
 import com.jaziel.crawler.helper.CookieHelper;
 import com.jaziel.crawler.helper.CrawlerHelper;
 import com.jaziel.crawler.utils.HttpClientUtils;
+import com.jaziel.crawler.utils.JsonValidator;
 import com.jaziel.crawler.utils.RequestUtils;
 import com.jaziel.crawler.utils.SeleniumClient;
 import com.jaziel.model.crawler.core.cookie.CrawlerCookie;
@@ -28,6 +29,7 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 /**
  * ProcessFlow 的抽象模板类，对其他子类通用方法的一些抽取
@@ -55,7 +57,7 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
             "Mozilla/5.0 (Windows NT 10.0; WOW64; Trident/7.0; rv:11.0) like Gecko",
             "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.116 UBrowser/5.6.12150.8 Safari/537.36",
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586",
-            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36 OPR/37.0.2178.32", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36" };
+            "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.87 Safari/537.36 OPR/37.0.2178.32", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.142 Safari/537.36"};
     /**
      * 设置 Accept
      * <p>
@@ -117,6 +119,7 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
 
     /**
      * 添加request
+     *
      * @param parseItemList
      */
     public void addSpiderRequest(List<ParseItem> parseItemList) {
@@ -148,6 +151,7 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
     private SeleniumClient seleniumClient;
     @Autowired
     private CrawlerProxyProvider crawlerProxyProvider;
+
     /**
      * 获取原始的Html 页面数据
      *
@@ -173,12 +177,13 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
         }
         return htmlData;
     }
+
     /**
      * 通过Http Client 来获取数据
      *
-     * @param url 请求的URL
+     * @param url          请求的URL
      * @param parameterMap 参数
-     * @param cookieList cookie列表
+     * @param cookieList   cookie列表
      * @param crawlerProxy 代理
      * @return
      */
@@ -196,16 +201,17 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
             jsonDate = HttpClientUtils.get(url, parameterMap, getHeaderMap(),
                     cookieStore, proxy, "UTF-8");
             log.info("HttpClient 请求数据完成：url:{},parameter:{},cookies:{},proxy:{},duration:{},result:{}", url, parameterMap, JSON.toJSONString(cookieList),
-            proxy, System.currentTimeMillis() - currentTime, jsonDate);
+                    proxy, System.currentTimeMillis() - currentTime, jsonDate);
         } catch (IOException e) {
             log.error("HttpClient 请求数据异常,url:{},parameter:{},cookies:{},proxy:{},errorMsg:{}", url, parameterMap, JSON.toJSONString(cookieList), proxy,
-            e.getMessage());
+                    e.getMessage());
         } catch (URISyntaxException e) {
             log.error("HttpClient 请求数据异常,url:{},parameter:{},cookies:{},proxy:{},errorMsg:{}", url, parameterMap, JSON.toJSONString(cookieList), proxy,
-            e.getMessage());
+                    e.getMessage());
         }
         return jsonDate;
     }
+
     /**
      * 获取 SeleniumRequestData
      *
@@ -225,6 +231,7 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
         }
         return crawlerHtml;
     }
+
     /**
      * cookie 转 CookieStore
      *
@@ -248,4 +255,45 @@ public abstract class AbstractProcessFlow implements ProcessFlow {
         return cookieStore;
     }
 
+    /**
+     * 获取原始的请求的JSON数据
+     *
+     * @param url
+     * @param parameterMap
+     * @return
+     */
+    public String getOriginalRequestJsonData(String url, Map<String, String>
+            parameterMap) {
+        //获取代理
+        CrawlerProxy proxy = crawlerProxyProvider.getRandomProxy();
+        //获取Cookie列表
+        List<CrawlerCookie> cookieList = cookieHelper.getCookieEntity(url,
+                proxy);
+        //通过HttpClient方式来获取数据
+        String jsonData = getHttpClientRequestData(url, parameterMap, cookieList,
+                proxy);
+        //如果不是JSON 说明数据抓取失败则通过SeleniumUtils的方式来获取数据
+        if (!isJson(jsonData)) {
+            CrawlerHtml crawlerHtml = getSeleniumRequestData(url, parameterMap,
+                    proxy);
+            jsonData = seleniumClient.getJsonData(crawlerHtml);
+        }
+        return jsonData;
+    }
+
+    /**
+     * 验证 字符串是否是json格式
+     *
+     * @param jsonData
+     * @return
+     */
+    public boolean isJson(String jsonData) {
+        boolean isJson = false;
+        try {
+            isJson = JsonValidator.getJsonValidator().validate(jsonData);
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+        return isJson;
+    }
 }
