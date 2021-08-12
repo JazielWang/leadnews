@@ -1,14 +1,13 @@
 package com.jaziel.crawler.factory;
 
 import com.jaziel.model.crawler.core.proxy.CrawlerProxy;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.HttpHost;
 
 /**
  * 代理工厂
  */
 public class CrawlerProxyFactory {
-
     /**
      * 不使用代理
      */

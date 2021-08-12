@@ -20,31 +20,28 @@ import java.util.stream.Collectors;
 @Component
 @Log4j2
 public class CsdnOriginalDataProcess extends AbstractOriginalDataProcess {
-    // 设定优先级
-    @Override
-    public int getPriority() {
-        return 10;
-    }
-
     @Autowired
     private CrawlerConfig crawlerConfig;
 
     @Override
     public List<ParseItem> parseOriginalRequestData(ProcessFlowData processFlowData) {
         List<ParseItem> parseItemList = null;
-        //从crawlerConfigProperty 中获取初始化URL列表
         List<String> initCrawlerUrlList = crawlerConfig.getInitCrawlerUrlList();
-        if (null != initCrawlerUrlList && !initCrawlerUrlList.isEmpty()) {
+        if (initCrawlerUrlList != null && !initCrawlerUrlList.isEmpty()) {
             parseItemList = initCrawlerUrlList.stream().map(url -> {
                 CrawlerParseItem parseItem = new CrawlerParseItem();
                 url = url + "?rnd=" + System.currentTimeMillis();
                 parseItem.setUrl(url);
                 parseItem.setDocumentType(CrawlerEnum.DocumentType.INIT.name());
                 parseItem.setHandelType(processFlowData.getHandelType().name());
-                log.info("初始化URL:{}", url);
                 return parseItem;
             }).collect(Collectors.toList());
         }
         return parseItemList;
+    }
+
+    @Override
+    public int getPriority() {
+        return 10;
     }
 }

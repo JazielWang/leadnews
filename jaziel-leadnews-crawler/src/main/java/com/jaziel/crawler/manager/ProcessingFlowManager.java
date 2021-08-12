@@ -33,27 +33,25 @@ public class ProcessingFlowManager {
 
     @Autowired
     private CrawlerConfig crawlerConfig;
-    /**
-     * 注入实现ProcessFlow 接口的所有类
-     */
+
     @Resource
     private List<ProcessFlow> processFlowList;
 
 
     /**
-     * spring 启动的时候就会进行调用
-     * 对实现ProcessFlow接口的类根据getPriority() 接口对实现类进行从小到大的排序
-     * 实现有序的责任链模式 一个模块处理一件事然后将数据传递到下个模块交给下各模块进行处理
+     * spring启动的时候初始化方法
+     * 通过子类的优先级进行排序
+     * 初始化spider
      */
     @PostConstruct
-    private void initProcessingFlow() {
-        if (null != processFlowList && !processFlowList.isEmpty()) {
+    public void initProcessingFlow(){
+        if(null != processFlowList && !processFlowList.isEmpty()){
             processFlowList.sort(new Comparator<ProcessFlow>() {
                 @Override
-                public int compare(ProcessFlow p1, ProcessFlow p2) {
-                    if (p1.getPriority() > p2.getPriority()) {
+                public int compare(ProcessFlow o1, ProcessFlow o2) {
+                    if(o1.getPriority() > o2.getPriority()){
                         return 1;
-                    } else if (p1.getPriority() < p2.getPriority()) {
+                    }else if(o1.getPriority() < o2.getPriority()){
                         return -1;
                     }
                     return 0;
@@ -64,35 +62,6 @@ public class ProcessingFlowManager {
         crawlerConfig.setSpider(spider);
     }
 
-    /**
-     * 抓取组件封装
-     * <p>
-     * 根据接口 CrawlerEnum.ComponentType getComponentType()获取的
-     * CrawlerEnum.ComponentType 类封装组件CrawlerComponent
-     *
-     * @param processFlowList
-     * @return
-     */
-    private CrawlerComponent getComponent(List<ProcessFlow> processFlowList) {
-        CrawlerComponent component = new CrawlerComponent();
-        for (ProcessFlow processingFlow : processFlowList) {
-            if (processingFlow.getComponentType() ==
-                    CrawlerEnum.ComponentType.PAGEPROCESSOR) {
-                component.setPageProcessor((PageProcessor) processingFlow);
-            } else if (processingFlow.getComponentType() ==
-                    CrawlerEnum.ComponentType.PIPELINE) {
-                component.addPipeline((Pipeline) processingFlow);
-            } else if (processingFlow.getComponentType() ==
-                    CrawlerEnum.ComponentType.SCHEDULER) {
-                component.setScheduler((Scheduler) processingFlow);
-            } else if (processingFlow.getComponentType() ==
-                    CrawlerEnum.ComponentType.DOWNLOAD) {
-                component.setDownloader((Downloader) processingFlow);
-            }
-        }
-        return component;
-    }
-
     private Spider configSpider() {
         Spider spider = initSpider();
         spider.thread(5);
@@ -100,28 +69,25 @@ public class ProcessingFlowManager {
     }
 
     /**
-     * 根据ProcessFlow接口getComponentType() 接口类型数生成Spider
-     *
-     * @param
+     * 根据ProcessFlow接口的getComponentType接口类型生成spider对象
      * @return
      */
     private Spider initSpider() {
         Spider spider = null;
         CrawlerComponent component = getComponent(processFlowList);
-        if (null != component) {
+        if(null != component){
             PageProcessor pageProcessor = component.getPageProcessor();
-            if (null != pageProcessor) {
-                spider = Spider.create(pageProcessor);
+            if(pageProcessor!=null){
+                spider=Spider.create(pageProcessor);
             }
-            if (null != spider && null != component.getScheduler()) {
+            if(null!=spider && null != component.getScheduler()){
                 spider.setScheduler(component.getScheduler());
             }
-            if (null != spider && null != component.getDownloader()) {
+            if(null != spider && null != component.getDownloader()){
                 spider.setDownloader(component.getDownloader());
             }
             List<Pipeline> pipelineList = component.getPipelineList();
-            if (null != spider && null != pipelineList &&
-                    !pipelineList.isEmpty()) {
+            if(null != spider && null != pipelineList && !pipelineList.isEmpty()){
                 for (Pipeline pipeline : pipelineList) {
                     spider.addPipeline(pipeline);
                 }
@@ -131,42 +97,47 @@ public class ProcessingFlowManager {
     }
 
     /**
-     * 正向处理
+     * 抓取组件的封装
+     * @param processFlowList
+     * @return
      */
-    public void handel() {
-        startTask(null, CrawlerEnum.HandelType.FORWARD);
-    }
-
-
-
-    /**
-     * 反向同步数据处理
-     *
-     * @param parseItemList
-     */
-    public void handelReverseData(List<ParseItem> parseItemList) {
-        if (null != parseItemList && !parseItemList.isEmpty()) {
-            for (ParseItem item : parseItemList) {
-                item.setDocumentType(CrawlerEnum.DocumentType.PAGE.name());
-                item.setHandelType(CrawlerEnum.HandelType.REVERSE.name());
+    private CrawlerComponent getComponent(List<ProcessFlow> processFlowList) {
+        CrawlerComponent component = new CrawlerComponent();
+        for (ProcessFlow processFlow : processFlowList) {
+            if(processFlow.getComponentType() == CrawlerEnum.ComponentType.PAGEPROCESSOR){
+                component.setPageProcessor((PageProcessor) processFlow);
+            }else if(processFlow.getComponentType() == CrawlerEnum.ComponentType.PIPELINE){
+                component.addPipeline((Pipeline) processFlow);
+            }else if(processFlow.getComponentType() == CrawlerEnum.ComponentType.DOWNLOAD){
+                component.setDownloader((Downloader) processFlow);
+            }else if(processFlow.getComponentType() == CrawlerEnum.ComponentType.SCHEDULER){
+                component.setScheduler((Scheduler) processFlow);
             }
         }
+        return component;
     }
+
+
 
     /**
      * 开始处理爬虫任务
-     *
-     * @param parseItemList 处理初始化URL列表
-     * @param handelType    FORWARD 正向处理 REVERSE 逆向处理
+     * @param parseItemList
+     * @param handelType
      */
-    public void startTask(List<ParseItem> parseItemList, CrawlerEnum.HandelType
-            handelType) {
+    public void startTask(List<ParseItem> parseItemList,CrawlerEnum.HandelType handelType){
         ProcessFlowData processFlowData = new ProcessFlowData();
         processFlowData.setHandelType(handelType);
         processFlowData.setParseItemList(parseItemList);
-        for (ProcessFlow processingFlow : processFlowList) {
-            processingFlow.handel(processFlowData);
+        for (ProcessFlow processFlow : processFlowList) {
+            processFlow.handel(processFlowData);
         }
         crawlerConfig.getSpider().start();
+    }
+
+    /**
+     * 正向爬取
+     */
+    public void handel(){
+        startTask(null,CrawlerEnum.HandelType.FORWARD);
     }
 }

@@ -40,5 +40,4 @@ public class CrawlerComponent implements Serializable {
     public void addPipeline(Pipeline pipeline) {
         pipelineList.add(pipeline);
     }
-
 }

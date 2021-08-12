@@ -19,21 +19,23 @@ import java.util.List;
 public class CrawlerPageProcessorManager {
     @Autowired
     private CrawlerHelper crawlerHelper;
+
     @Resource
     private List<AbstractCrawlerPageProcessor> abstractCrawlerPageProcessorList;
 
     /**
-     * 初始化注入的接口排序
+     * 初始化注入接口顺序的方法
      */
+
     @PostConstruct
-    private void initProcessingFlow() {
-        if (null != abstractCrawlerPageProcessorList && !abstractCrawlerPageProcessorList.isEmpty()) {
+    public void initProcessingFlow() {
+        if (abstractCrawlerPageProcessorList != null && !abstractCrawlerPageProcessorList.isEmpty()) {
             abstractCrawlerPageProcessorList.sort(new Comparator<ProcessFlow>() {
                 @Override
-                public int compare(ProcessFlow p1, ProcessFlow p2) {
-                    if (p1.getPriority() > p2.getPriority()) {
+                public int compare(ProcessFlow o1, ProcessFlow o2) {
+                    if (o1.getPriority() > o2.getPriority()) {
                         return 1;
-                    } else if (p1.getPriority() < p2.getPriority()) {
+                    } else if (o1.getPriority() < o2.getPriority()) {
                         return -1;
                     }
                     return 0;
@@ -51,9 +53,9 @@ public class CrawlerPageProcessorManager {
         String handelType = crawlerHelper.getHandelType(page.getRequest());
         String documentType = crawlerHelper.getDocumentType(page.getRequest());
         for (AbstractCrawlerPageProcessor abstractCrawlerPageProcessor : abstractCrawlerPageProcessorList) {
-            boolean isNeedHandelType = abstractCrawlerPageProcessor.isNeedHandelType(handelType);
-            boolean isNeedDocumentType = abstractCrawlerPageProcessor.isNeedDocumentType(documentType);
-            if (isNeedHandelType && isNeedDocumentType) {
+            boolean needHandelType = abstractCrawlerPageProcessor.isNeedHandelType(handelType);
+            boolean needDocumentType = abstractCrawlerPageProcessor.isNeedDocumentType(documentType);
+            if (needHandelType && needDocumentType) {
                 abstractCrawlerPageProcessor.handelPage(page);
             }
         }

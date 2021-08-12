@@ -4,6 +4,7 @@ import com.jaziel.crawler.servicie.CrawlerNewsService;
 import com.jaziel.model.crawler.pojos.ClNews;
 import com.jaziel.model.mappers.crawerls.ClNewsMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -11,6 +12,8 @@ import java.util.List;
  * @Author Jaziel
  * @date 2021/8/9 14:42
  */
+@Service
+
 public class CrawlerNewsServiceImpl implements CrawlerNewsService {
     @Autowired
     private ClNewsMapper clNewsMapper;

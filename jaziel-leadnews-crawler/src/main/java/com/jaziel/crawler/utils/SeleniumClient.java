@@ -166,6 +166,7 @@ public class SeleniumClient {
      */
     private List<CrawlerCookie> delayed(final WebDriver driver, final String cookieName) {
         Object value = DelayedUtils.delayed(new DelayedCallBack() {
+            @Override
             public List<CrawlerCookie> callBack(long time) {
                 Set<Cookie> cookieSet = driver.manage().getCookies();
                 return getCrawlerCookie(cookieSet);
@@ -187,6 +188,7 @@ public class SeleniumClient {
              * 防止一直获取cpu资源耗费的太多，默认1秒重复获取一次
              * @return
              */
+            @Override
             public long sleepTime() {
                 return sleepTime;
             }
@@ -196,6 +198,7 @@ public class SeleniumClient {
              * 当达到超时时间就自动退出，将最新的页面数据返回
              * @return
              */
+            @Override
             public long timeOut() {
                 return timeOut;
             }

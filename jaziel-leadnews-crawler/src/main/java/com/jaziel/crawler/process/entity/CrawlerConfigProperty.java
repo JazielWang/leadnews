@@ -36,5 +36,4 @@ public class CrawlerConfigProperty implements Serializable {
      * 目标页抓取规则
      */
     private List<ParseRule> targetParseRuleList;
-
 }

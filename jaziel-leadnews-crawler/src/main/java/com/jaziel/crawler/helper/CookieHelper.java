@@ -20,8 +20,6 @@ import java.util.concurrent.ConcurrentHashMap;
  * 并且在cookie失效后进行自动更新。
  */
 public class CookieHelper {
-
-
     /**
      * 代理IP存放的地方
      * <ip+端口号,cookie列表>

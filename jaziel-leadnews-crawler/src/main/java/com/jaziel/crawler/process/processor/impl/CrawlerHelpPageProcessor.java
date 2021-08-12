@@ -20,123 +20,110 @@ import java.util.List;
 @Component
 @Log4j2
 public class CrawlerHelpPageProcessor extends AbstractCrawlerPageProcessor {
-    /**
-     * 帮助页面的后缀
-     */
-    private final String helpUrlSuffix = "?utm_source=feed";
-    /**
-     * 帮助页面分页后缀
-     */
-    private final String helpPagePagingSuffix = "/article/list/";
     @Autowired
     private CrawlerConfigProperty crawlerConfigProperty;
+
     @Autowired
     private CrawlerHelper crawlerHelper;
 
     /**
      * 处理数据
-     *
      * @param page
      */
     @Override
     public void handelPage(Page page) {
+        //获取类型
         String handelType = crawlerHelper.getHandelType(page.getRequest());
         long currentTime = System.currentTimeMillis();
         String requestUrl = page.getUrl().get();
-        log.info("开始解析帮助页数据，url:{},handelType：{}", requestUrl,
-                handelType);
-//获取配置的抓取规则
+        log.info("开始解析帮助页，url:{},handelType:{}",requestUrl,handelType);
+        //获取配置的抓取规则
         String helpCrawlerXpath = crawlerConfigProperty.getHelpCrawlerXpath();
-        List<String> helpUrlList =
-                page.getHtml().xpath(helpCrawlerXpath).links().all();
-        Integer crawlerHelpNextPagingSize =
-                crawlerConfigProperty.getCrawlerHelpNextPagingSize();
-        if (null != crawlerHelpNextPagingSize && crawlerHelpNextPagingSize > 1) {
-            List<String> docPagePagingUrlList =
-                    getDocPagePagingUrlList(requestUrl, crawlerHelpNextPagingSize);
-            if (null != docPagePagingUrlList && !docPagePagingUrlList.isEmpty()) {
-                helpUrlList.addAll(docPagePagingUrlList);
+        Integer crawlerHelpNextPagingSize = crawlerConfigProperty.getCrawlerHelpNextPagingSize();
+        List<String> helpUrlList = page.getHtml().xpath(helpCrawlerXpath).links().all();
+        if(null!=crawlerHelpNextPagingSize&&crawlerHelpNextPagingSize>1){
+            //分页逻辑处理
+            List<String> docPageUrlList = getDocPageUrlList(requestUrl,crawlerHelpNextPagingSize);
+            if(null!=docPageUrlList && !docPageUrlList.isEmpty()){
+                helpUrlList.addAll(docPageUrlList);
             }
         }
-        addSpiderRequest(helpUrlList, page.getRequest(),
-                CrawlerEnum.DocumentType.PAGE);
-        log.info("解析帮助页数据完成，url:{},handelType:{},耗时：{}", page.getUrl(),
-                handelType, System.currentTimeMillis() - currentTime);
+        addSpiderRequest(helpUrlList,page.getRequest(),CrawlerEnum.DocumentType.PAGE);
+        log.info("解析帮助页数据完成，url:{},handelType:{},耗时:{}",page.getUrl(),handelType,System.currentTimeMillis()-currentTime);
+
     }
+
+    private final String helpUrlSuffix = "?utm_source=feed";
+
+    private final String helpPageSuffix = "/article/list/";
 
     /**
      * 获取分页后的数据
-     *
-     * @param url      处理的URL
-     * @param pageSize 分页页数
+     * @param url
+     * @param pageSize
      * @return
      */
-    private List<String> getDocPagePagingUrlList(String url, int pageSize) {
-        List<String> docPagePagingUrlList = null;
-        if (url.endsWith(helpUrlSuffix)) {
-            List<String> pagePagingUrlList = generateHelpPagingUrl(url,
-                    pageSize);
-            docPagePagingUrlList = getHelpPagingDocUrl(pagePagingUrlList);
+    private List<String> getDocPageUrlList(String url, Integer pageSize) {
+        List<String> docPagePaingUrlList = null;
+        if(url.endsWith(helpUrlSuffix)){
+            //分页的url
+            List<String> pagePagingUrlList = generateHelpPagingUrl(url,pageSize);
+            //获取分页数据中的目标url
+            docPagePaingUrlList = getHelpPagingDocUrl(pagePagingUrlList);
         }
-        return docPagePagingUrlList;
+        return docPagePaingUrlList;
     }
 
     /**
-     * 生成分页URL
-     *
-     * @param url      初始URL
-     * @param pageSize 分页页数
-     * @return
-     */
-    public List<String> generateHelpPagingUrl(String url, int pageSize) {
-        String pageUrl = url.replace(helpUrlSuffix, helpPagePagingSuffix);
-        List<String> pagePagingUrlList = new ArrayList<String>();
-        for (int i = 2; i <= pageSize; i++) {
-            pagePagingUrlList.add(pageUrl + i);
-        }
-        return pagePagingUrlList;
-    }
-
-    /**
-     * 获取分页后获取的URL
-     *
+     * 获取分页后的url(文章的url列表)
      * @param pagePagingUrlList
      * @return
      */
-    public List<String> getHelpPagingDocUrl(List<String> pagePagingUrlList) {
-        long currentTime = System.currentTimeMillis();
-        log.info("开始进行分页抓取Doc页面");
+    private List<String> getHelpPagingDocUrl(List<String> pagePagingUrlList) {
+        long currentTimeMillis = System.currentTimeMillis();
+        log.info("开始进行分页抓取doc页面");
         List<String> docUrlList = new ArrayList<>();
-        int fialCount = 0;
-        if (!pagePagingUrlList.isEmpty()) {
+        int failCount=0;
+        if(!pagePagingUrlList.isEmpty()){
             for (String url : pagePagingUrlList) {
-                log.info("开始进行Help页面分页处理，url:{}", url);
+                log.info("开始进行help页面分页处理，url:",url);
                 String htmlData = getOriginalRequestHtmlData(url, null);
-                boolean isValidate =
-                        crawlerHelper.getDataValidateCallBack().validate(htmlData);
-                if (isValidate) {
-                    List<String> urlList = new
-                            Html(htmlData).xpath(crawlerConfigProperty.getHelpCrawlerXpath()).links().all();
-                    if (!urlList.isEmpty()) {
+                boolean validate = crawlerHelper.getDataValidateCallBack().validate(htmlData);
+                if(validate){
+                    List<String> urlList = new Html(htmlData).xpath(crawlerConfigProperty.getHelpCrawlerXpath()).links().all();
+                    if(!urlList.isEmpty()){
                         docUrlList.addAll(urlList);
-                    } else {
-                        fialCount++;
-                        if (fialCount > 2) {
+                    }else {
+                        failCount++;
+                        if(failCount>2){
                             break;
                         }
                     }
                 }
             }
         }
-        log.info("分抓取Doc页面完成，耗时:{}", System.currentTimeMillis() -
-                currentTime);
+        log.info("分页抓取doc页面完成，耗时:{}",System.currentTimeMillis()-currentTimeMillis);
         return docUrlList;
     }
 
     /**
-     * 处理的爬取类型
-     * 只处理正向爬取
-     *
+     * 生成分页的url
+     * @param url
+     * @param pageSize
+     * @return
+     */
+    private List<String> generateHelpPagingUrl(String url, Integer pageSize) {
+        String pageUrl = url.replace(helpUrlSuffix,helpPageSuffix);
+        List<String> pagePagingUrlList = new ArrayList<>();
+        for(int i = 2;i<pageSize;i++){
+            pagePagingUrlList.add(pageUrl+i);
+        }
+        return pagePagingUrlList;
+    }
+
+    /**
+     * 处理的爬虫类型
+     * 正向
      * @param handelType
      * @return
      */
@@ -147,8 +134,6 @@ public class CrawlerHelpPageProcessor extends AbstractCrawlerPageProcessor {
 
     /**
      * 处理的文档类型
-     * 只处理帮助页面
-     *
      * @param documentType
      * @return
      */
@@ -157,6 +142,10 @@ public class CrawlerHelpPageProcessor extends AbstractCrawlerPageProcessor {
         return CrawlerEnum.DocumentType.HELP.name().equals(documentType);
     }
 
+    /**
+     * 优先级
+     * @return
+     */
     @Override
     public int getPriority() {
         return 110;

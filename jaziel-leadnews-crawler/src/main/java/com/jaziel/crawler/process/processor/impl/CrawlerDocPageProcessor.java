@@ -22,57 +22,39 @@ import java.util.List;
 public class CrawlerDocPageProcessor extends AbstractCrawlerPageProcessor {
     @Autowired
     private CrawlerConfigProperty crawlerConfigProperty;
+
     @Autowired
     private CrawlerHelper crawlerHelper;
 
     /**
      * 处理页面数据
-     *
      * @param page
      */
     @Override
     public void handelPage(Page page) {
-        long currentTime = System.currentTimeMillis();
+        long currentTimeMillis = System.currentTimeMillis();
         String handelType = crawlerHelper.getHandelType(page.getRequest());
-        log.info("开始解析目标页数据，url:{},handelType:{}", page.getUrl(),
-                handelType);
-        //获取抓取规则列表
-        List<ParseRule> targetParseRuleList =
-                crawlerConfigProperty.getTargetParseRuleList();
+        log.info("开始解析目标页数，url:{},handelType:{}",page.getUrl(),handelType);
+        //获取目标页的抓取规则
+        List<ParseRule> targetParseRuleList = crawlerConfigProperty.getTargetParseRuleList();
         //抽取有效的数据
-        targetParseRuleList = ParseRuleUtils.parseHtmlByRuleList(page.getHtml(),
-                targetParseRuleList);
-        if (null != targetParseRuleList && !targetParseRuleList.isEmpty()) {
-            for (ParseRule parseRule : targetParseRuleList) {
-        //将数据添加进page里面，交给后续的pipline 处理
-                log.info("添加数据字段到field，url:{}，handelType:{},field:{}",
-                        page.getUrl(), handelType, parseRule.getField());
-                page.putField(parseRule.getField(), parseRule.getMergeContent());
+        targetParseRuleList = ParseRuleUtils.parseHtmlByRuleList(page.getHtml(), targetParseRuleList);
+        if(null != targetParseRuleList && !targetParseRuleList.isEmpty()){
+            for(ParseRule parseRule : targetParseRuleList){
+                //将数据添加到page中，交给后续的pipline处理
+                log.info("添加数据字段到page中的field,url:{},handelType:{},field:{}",page.getUrl(),handelType,parseRule.getField());
+                page.putField(parseRule.getField(),parseRule.getMergeContent());
             }
         }
-        log.info("解析目标页数据完成，url:{},handelType:{},耗时：{}", page.getUrl(),
-                handelType, System.currentTimeMillis() - currentTime);
+
+        log.info("解析目标也数据完成，url:{},handelType:{},耗时:{}",page.getUrl(),handelType,System.currentTimeMillis()-currentTimeMillis);
     }
 
-    /**
-     * 需要处理的爬取类型
-     * 所以的爬取类型都处理
-     *
-     * @param handelType
-     * @return
-     */
     @Override
     public boolean isNeedHandelType(String handelType) {
-        return true;
+        return CrawlerEnum.HandelType.FORWARD.name().equals(handelType);
     }
 
-    /**
-     * 需要处理的文档类型
-     * 只处理目标类型
-     *
-     * @param documentType
-     * @return
-     */
     @Override
     public boolean isNeedDocumentType(String documentType) {
         return CrawlerEnum.DocumentType.PAGE.name().equals(documentType);

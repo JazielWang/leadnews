@@ -36,5 +36,4 @@ public class ProcessFlowData {
     public void setHandelType(CrawlerEnum.HandelType handelType) {
         this.handelType = handelType;
     }
-
 }

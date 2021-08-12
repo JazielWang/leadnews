@@ -1,8 +1,13 @@
 package com.jaziel.model.crawler.core.parse.impl;
 
 import com.jaziel.model.crawler.core.parse.ParseItem;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class CrawlerParseItem extends ParseItem {
+
     /**
      * 数据ID
      */
@@ -24,7 +29,7 @@ public class CrawlerParseItem extends ParseItem {
     /**
      * 标签
      */
-    private String tag;
+    private String labels;
     /**
      * 策略
      */
@@ -96,140 +101,4 @@ public class CrawlerParseItem extends ParseItem {
         return getContent();
     }
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getSummary() {
-        return summary;
-    }
-
-    public void setSummary(String summary) {
-        this.summary = summary;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getSpatialUrl() {
-        return spatialUrl;
-    }
-
-    public void setSpatialUrl(String spatialUrl) {
-        this.spatialUrl = spatialUrl;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public String getStrategy() {
-        return strategy;
-    }
-
-    public void setStrategy(String strategy) {
-        this.strategy = strategy;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public int getDocType() {
-        return docType;
-    }
-
-    public void setDocType(int docType) {
-        this.docType = docType;
-    }
-
-    public String getSubTitle() {
-        return subTitle;
-    }
-
-    public void setSubTitle(String subTitle) {
-        this.subTitle = subTitle;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(String releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Integer getReadCount() {
-        return readCount;
-    }
-
-    public void setReadCount(Integer readCount) {
-        this.readCount = readCount;
-    }
-
-    public Integer getCommentCount() {
-        return commentCount;
-    }
-
-    public void setCommentCount(Integer commentCount) {
-        this.commentCount = commentCount;
-    }
-
-    public Integer getLikes() {
-        return likes;
-    }
-
-    public void setLikes(Integer likes) {
-        this.likes = likes;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-
-    public String getCompressContent() {
-        return compressContent;
-    }
-
-    public void setCompressContent(String compressContent) {
-        this.compressContent = compressContent;
-    }
 }

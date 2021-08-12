@@ -64,8 +64,6 @@ public abstract class AbstractHtmlParsePipeline<T> extends AbstractProcessFlow i
         ParseItem parseItem = crawlerHelper.getParseItem(resultItems.getRequest());
         if(null!=parseItem && StringUtils.isNotEmpty(url)){
             Map<String, Object> itemsAll = resultItems.getAll();
-            //前置参数处理  评论处理
-            preParameterHandel(itemsAll);
             if(url.equals(parseItem.getInitialUrl())){
                 //通过反射进行设置属性
                 ReflectUtils.setPropertie(parseItem,itemsAll,true);
@@ -83,11 +81,6 @@ public abstract class AbstractHtmlParsePipeline<T> extends AbstractProcessFlow i
      */
     protected abstract void handelHemlData(T parseItem);
 
-    /**
-     * 处理清洗及保存
-     * @param itemsAll
-     */
-    protected abstract void preParameterHandel(Map<String, Object> itemsAll);
 
     /**
      * 获取解析表达式

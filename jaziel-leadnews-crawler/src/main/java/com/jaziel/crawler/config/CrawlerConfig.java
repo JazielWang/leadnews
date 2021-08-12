@@ -86,10 +86,8 @@ public class CrawlerConfig {
                 if (StringUtils.isEmpty(content)) {
                     flag = false;
                 } else {
-                    boolean isContains_acw_sc_v2 =
-                            content.contains("acw_sc__v2");
-                    boolean isContains_location_reload =
-                            content.contains("document.location.reload()");
+                    boolean isContains_acw_sc_v2 = content.contains("acw_sc__v2");
+                    boolean isContains_location_reload = content.contains("document.location.reload()");
                     if (isContains_acw_sc_v2 && isContains_location_reload) {
                         flag = false;
                     }
@@ -105,7 +103,7 @@ public class CrawlerConfig {
      * @return
      */
     @Bean
-    public CrawlerHelper getCrawerHelper() {
+    public CrawlerHelper getCrawlerHelper() {
         CookieHelper cookieHelper = getCookieHelper();
         CrawlerHelper crawerHelper = new CrawlerHelper();
         DataValidateCallBack dataValidateCallBack =
